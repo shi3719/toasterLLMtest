@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Floating Circles Background</title>
+  <style>
+    :root {
+      /* 파란 라인/그라데이션 색상 (RGB) */
+      --blue: 30 136 229;
+    }
+
+    html, body {
+      height: 100%;
+    }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      background-color: #f8f8f8;
+      color: #0f172a;
+    }
+
+    .stage {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+    }
+
+    /* 내용 예시 영역 */
+    .content {
+        position: absolute;
+        background-image: url(/top.png);
+        background-size: contain;
+        background-position: center top;
+        background-repeat: no-repeat;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    /* 공통 원 스타일 */
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      will-change: transform;
+      mix-blend-mode: multiply;       
+      background-image: url(/Ellipse\ 133.svg);
+      background-position: center;
+      background-size: cover;
+      animation: floatPulse 5s ease-in-out infinite;
+      animation-direction: reverse;
+    }
+
+    .circle:nth-child(2){
+        animation-delay: 1s;
+    }
+
+    .circle:nth-child(4){
+        animation-delay: 3s;
+    }
+
+    @keyframes floatPulse {
+      0%   { transform: translateY(1000px)}
+      25%  { transform: translateY(0)}
+      50%  { transform: translateY(-1000px)}
+      75%  { transform: translateY(0)}
+      100% { transform: translateY(1000px)}
+    }
+
+    /* 접근성: 모션 최소화 설정을 존중 */
+    @media (prefers-reduced-motion: reduce) {
+      .circle { animation: none; }
+    }
+
+    /* 각 원의 위치/크기/타이밍 */
+    .c1 { width: 172vw; height: 172vw; left: -10vw; top: 120vh;  --dur: 9s;  --delay: .2s; }
+    .c2 { width: 156vw; height: 156vw; left: 22vw;  top: 42vh;  --dur: 7.5s; --delay: 1.0s; }
+    .c3 { width: 150vw; height: 150vw; right: -6vw; top: 110vh;  --dur: 8.5s; --delay: 1.8s; }
+    .c4 { width: 176vw; height: 176vw; right: -18vw; top: 48vh; --dur: 10s;  --delay: .6s; }
+
+    /* 반응형에서 너무 커지는 것 방지 (선택 사항) */
+    @media (max-width: 768px) {
+      .c1, .c2, .c3, .c4 { filter: blur(.2px); } /* 라인 톱니 완화 */
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <!-- 배경 원들 -->
+    <div class="circle c1"></div>
+    <div class="circle c2"></div>
+    <div class="circle c3"></div>
+    <div class="circle c4"></div>
+
+    <!-- 중앙 콘텐츠 예시 (원 위에 놓일 실제 UI) -->
+    <div class="content">
+    </div>
+  </div>
+</body>
+</html>
